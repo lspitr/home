@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <input id="smartbox" type="text" placeholder="Search or enter a URL..." />
+    <button onclick="goSmart()">Go</button>
+
+    <script>
+      const box = document.getElementById("smartbox");
+
+      function goSmart() {
+        let q = box.value.trim();
+        const looksLikeDomain = q.includes(".") && !q.includes(" ");
+
+        if (looksLikeDomain) {
+          if (!q.startsWith("http://") && !q.startsWith("https://")) {
+            q = "https://" + q;
+          }
+          window.location.href = q;
+        } else {
+          window.location.href = "https://duckduckgo.com/?q=" + encodeURIComponent(q);
+        }
+      }
+
+      box.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          goSmart();
+        }
+      });
+    </script>
+  </body>
+</html>
